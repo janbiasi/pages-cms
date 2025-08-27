@@ -1,0 +1,49 @@
+name: pages-cms
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pagescms
+      POSTGRES_USER: pagescms
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pagescms_dev_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pagescms -d pagescms"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pages-cms:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://pagescms:${POSTGRES_PASSWORD:-pagescms_dev_password}@postgres:5432/pagescms
+      NEXT_OUTPUT_MODE: standalone
+      CRYPTO_KEY: ${CRYPTO_KEY:-your-crypto-key-here}
+      CRON_SECRET: ${CRON_SECRET:-your-cron-secret-here}
+      GITHUB_APP_ID: ${GITHUB_APP_ID}
+      GITHUB_APP_NAME: ${GITHUB_APP_NAME}
+      GITHUB_APP_PRIVATE_KEY: ${GITHUB_APP_PRIVATE_KEY}
+      GITHUB_APP_WEBHOOK_SECRET: ${GITHUB_APP_WEBHOOK_SECRET}
+      GITHUB_APP_CLIENT_ID: ${GITHUB_APP_CLIENT_ID}
+      GITHUB_APP_CLIENT_SECRET: ${GITHUB_APP_CLIENT_SECRET}
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-Pages CMS <no-reply@localhost>}
+      BASE_URL: ${BASE_URL:-http://localhost:3000}
+      FILE_CACHE_TTL: ${FILE_CACHE_TTL:-1440}
+      PERMISSION_CACHE_TTL: ${PERMISSION_CACHE_TTL:-60}
+    ports:
+      - "${PORT:-3000}:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

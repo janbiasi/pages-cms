@@ -1,0 +1,60 @@
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Next.js build output and cache
+.next
+out
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.staging
+
+# Local database
+*.db
+*.db-journal
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Development files
+README.md
+CONTRIBUTING.md
+LICENSE
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# Build artifacts
+dist
+build
+
+# Temporary files
+tmp
+temp
