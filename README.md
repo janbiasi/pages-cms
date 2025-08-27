@@ -12,7 +12,7 @@ It offers a user-friendly interface to edit the content of your website or app d
 </picture>
 </a>
 
-*[Watch the demo ▶](https://demo.pagescms.org)*
+_[Watch the demo ▶](https://demo.pagescms.org)_
 
 ## Documentation
 
@@ -51,53 +51,54 @@ You will need to fill in the following information:
 - **GitHub App name**: use "Pages CMS" or whatever you think is appropriate (e.g. "Pages CMS (dev)").
 - **Homepage URL**: whatever you want, https://pagescms.org will do.
 - **Identifying and authorizing users**:
-    - Callback URL: the URL for `/api/auth/github`:
-        - `http://localhost:3000/api/auth/github` for development,
-        - something like `https://my-vercel-url.vercel.app/api/auth/github` (or whatever custom domain you're using) if you're deploying on Vercel.
-    - Expire user authorization tokens: no.
-    - Request user authorization (OAuth) during installation: yes.
-    - Enable Device Flow: no.
+  - Callback URL: the URL for `/api/auth/github`:
+    - `http://localhost:3000/api/auth/github` for development,
+    - something like `https://my-vercel-url.vercel.app/api/auth/github` (or whatever custom domain you're using) if you're deploying on Vercel.
+  - Expire user authorization tokens: no.
+  - Request user authorization (OAuth) during installation: yes.
+  - Enable Device Flow: no.
 - **Post installation**:
-    - Setup URL (optional): leave empty.
-    - Redirect on update: no.
+  - Setup URL (optional): leave empty.
+  - Redirect on update: no.
 - **Webhook**:
-    - Active: yes.
-    - Webhook URL: the (public) URL for `/api/webhook/github`:
-        - for development, you'll need to use something like [ngrok](https://ngrok.com/). You'll end up with something like `https://your-unique-subdomain.ngrok-free.app/api/webhook/github`.
-        - something like `https://my-vercel-url.vercel.app/api/webhook/github` (or whatever custom domain you're using) if you're deploying on Vercel.
-    - Secret: generate a random string (for example with `openssl rand -base64 32` on MacOS/Linux)
+  - Active: yes.
+  - Webhook URL: the (public) URL for `/api/webhook/github`:
+    - for development, you'll need to use something like [ngrok](https://ngrok.com/). You'll end up with something like `https://your-unique-subdomain.ngrok-free.app/api/webhook/github`.
+    - something like `https://my-vercel-url.vercel.app/api/webhook/github` (or whatever custom domain you're using) if you're deploying on Vercel.
+  - Secret: generate a random string (for example with `openssl rand -base64 32` on MacOS/Linux)
 - **Permissions**:
-    - Repository permissions:
-        - Administration: Read & Write
-        - Contents: Read & Write
-        - Metadata: Read only
-    - Organization permissions: nothing.
-    - Account permissions: nothing.
+  - Repository permissions:
+    - Administration: Read & Write
+    - Contents: Read & Write
+    - Metadata: Read only
+  - Organization permissions: nothing.
+  - Account permissions: nothing.
 - **Subscribe to events**:
-    - Installation target
-    - Repository
-    - Push
-    - Delete
+  - Installation target
+  - Repository
+  - Push
+  - Delete
 - **Where can this GitHub App be installed?**: you'll want to select "Any account" unless you intend to only use Pages CMS on the account this GitHub App is created under.
 
 ### Environment variables
 
-Variable | Comments
---- | ---
-`BASE_URL` | **OPTIONAL**. If you're deploying to Vercel or working locally, you won't need that. If you're deploying elsewhere, you'll need to specify the base URL for the app (e.g. `https://mycustomdomain.com`).
-`DATABASE_URL` | The database URL, including your credentials (e.g. `postgresql://user:password@example.com:6543`). If you're using [Supabase](https://supabase.com), use the "Transaction pooler" url.
-`CRYPTO_KEY` | Used to encrypt/decrypt GitHub tokens in the database. On MacOS/Linux*, you can use `openssl rand -base64 32`.
-`GITHUB_APP_ID` | GitHub App ID from your GitHub App details page.
-`GITHUB_APP_NAME` | Machine name for your GitHub App (e.g. `pages-cms`), should be the slug the URL of your GitHub App details page.
-`GITHUB_APP_PRIVATE_KEY` | PEM file you can download upong creation of the GitHub App.
-`GITHUB_APP_WEBHOOK_SECRET` | The secret you picked for your webhook. This is used to ensure the request is coming from GitHub.
-`GITHUB_APP_CLIENT_ID` | GitHub App Client ID from your GitHub App details page.
-`GITHUB_APP_CLIENT_SECRET` | GitHub App Client Secret you generate on theGitHub App details page.
-`RESEND_FROM_EMAIL` | The sender for authentication emails. Must be a verified domain in your Resend account and follow the format `email@example.com` or `Name <email@example.com>`.
-`RESEND_API_KEY` | You'll get that when you create a (free) [Resend](https://resend.com) account to handle emails.
-`FILE_CACHE_TTL` | **OPTIONAL**. Time to live (in minutes) for file cache (collections and media folders). Defaults to 1440 (1 day). Set to "-1" to prevent the cache from ever expiring, or "0" if you want no cache.
-`PERMISSION_CACHE_TTL` | **OPTIONAL**. Time to live (in minutes) for the permission cache, which controls access to file cache. Defaults to 60. Set to "0" if you want to always check permissions against the GitHub API.
-`CRON_SECRET` | Secret token used to secure the access of the cron API endpoint.
+| Variable                    | Comments                                                                                                                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BASE_URL`                  | **OPTIONAL**. If you're deploying to Vercel or working locally, you won't need that. If you're deploying elsewhere, you'll need to specify the base URL for the app (e.g. `https://mycustomdomain.com`). |
+| `DATABASE_URL`              | The database URL, including your credentials (e.g. `postgresql://user:password@example.com:6543`). If you're using [Supabase](https://supabase.com), use the "Transaction pooler" url.                   |
+| `CRYPTO_KEY`                | Used to encrypt/decrypt GitHub tokens in the database. On MacOS/Linux\*, you can use `openssl rand -base64 32`.                                                                                          |
+| `GITHUB_APP_ID`             | GitHub App ID from your GitHub App details page.                                                                                                                                                         |
+| `GITHUB_APP_NAME`           | Machine name for your GitHub App (e.g. `pages-cms`), should be the slug the URL of your GitHub App details page.                                                                                         |
+| `GITHUB_APP_PRIVATE_KEY`    | PEM file you can download upong creation of the GitHub App.                                                                                                                                              |
+| `GITHUB_APP_WEBHOOK_SECRET` | The secret you picked for your webhook. This is used to ensure the request is coming from GitHub.                                                                                                        |
+| `GITHUB_APP_CLIENT_ID`      | GitHub App Client ID from your GitHub App details page.                                                                                                                                                  |
+| `GITHUB_APP_CLIENT_SECRET`  | GitHub App Client Secret you generate on theGitHub App details page.                                                                                                                                     |
+| `RESEND_FROM_EMAIL`         | The sender for authentication emails. Must be a verified domain in your Resend account and follow the format `email@example.com` or `Name <email@example.com>`.                                          |
+| `RESEND_API_KEY`            | You'll get that when you create a (free) [Resend](https://resend.com) account to handle emails.                                                                                                          |
+| `FILE_CACHE_TTL`            | **OPTIONAL**. Time to live (in minutes) for file cache (collections and media folders). Defaults to 1440 (1 day). Set to "-1" to prevent the cache from ever expiring, or "0" if you want no cache.      |
+| `PERMISSION_CACHE_TTL`      | **OPTIONAL**. Time to live (in minutes) for the permission cache, which controls access to file cache. Defaults to 60. Set to "0" if you want to always check permissions against the GitHub API.        |
+| `CRON_SECRET`               | Secret token used to secure the access of the cron API endpoint.                                                                                                                                         |
+| `NEXT_OUTPUT_MODE`          | Set the [output](https://nextjs.org/docs/app/api-reference/config/next-config-js/output) mode for Next.js, automatically set for deployments via `Dockerfile`                                            |
 
 ### Local development
 
@@ -112,16 +113,73 @@ We assume you've already created the GitHub App and have a running tunnel for th
 
 1. **Create a PostgreSQL database**: I recommend using [Supabase](https://supabase.com), but any PostgreSQL database will do.
 2. **Deploy to Vercel**: at this stage you have 2 choices:
-    1. **Create a fork**: fork the `pages-cms/pages-cms` repo in your account and deploy that fork. This will allow you to get updates. **Make sure you define all of the environment variables listed above**.
-    2. **Use the deploy button**:
-    
-        [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpages-cms%2Fpages-cms%2Ftree%2Fmain&project-name=pages-cms&repository-name=pages-cms&redirect-url=https%3A%2F%2Fpagescms.org&env=CRYPTO_KEY,GITHUB_APP_ID,GITHUB_APP_NAME,GITHUB_APP_PRIVATE_KEY,GITHUB_APP_WEBHOOK_SECRET,GITHUB_APP_CLIENT_ID,GITHUB_APP_CLIENT_SECRET,RESEND_API_KEY,DATABASE_URL)
+
+   1. **Create a fork**: fork the `pages-cms/pages-cms` repo in your account and deploy that fork. This will allow you to get updates. **Make sure you define all of the environment variables listed above**.
+   2. **Use the deploy button**:
+
+      [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpages-cms%2Fpages-cms%2Ftree%2Fmain&project-name=pages-cms&repository-name=pages-cms&redirect-url=https%3A%2F%2Fpagescms.org&env=CRYPTO_KEY,GITHUB_APP_ID,GITHUB_APP_NAME,GITHUB_APP_PRIVATE_KEY,GITHUB_APP_WEBHOOK_SECRET,GITHUB_APP_CLIENT_ID,GITHUB_APP_CLIENT_SECRET,RESEND_API_KEY,DATABASE_URL)
 
 3. **Update your GitHub OAuth app**: you'll probably need to go back to your GitHub App settings to update some of the settings once you have the Vercel URL (e.g. "Callback URL" and "Webhook URL").
+
+### Deploy with Docker
+
+Pages CMS includes a production-ready Dockerfile and GitHub Actions workflow for automated Docker image builds and publishing to Docker Hub.
+
+#### Using the provided Dockerfile
+
+1. **Build the image locally**:
+
+   ```bash
+   docker build -t pages-cms .
+   ```
+
+2. **Run the container**:
+   ```bash
+   docker run -p 3000:3000 \
+     -e DATABASE_URL="your-database-url" \
+     -e CRYPTO_KEY="your-crypto-key" \
+     -e GITHUB_APP_ID="your-github-app-id" \
+     -e GITHUB_APP_NAME="your-github-app-name" \
+     -e GITHUB_APP_PRIVATE_KEY="your-github-app-private-key" \
+     -e GITHUB_APP_WEBHOOK_SECRET="your-webhook-secret" \
+     -e GITHUB_APP_CLIENT_ID="your-client-id" \
+     -e GITHUB_APP_CLIENT_SECRET="your-client-secret" \
+     -e RESEND_API_KEY="your-resend-api-key" \
+     -e RESEND_FROM_EMAIL="your-email@domain.com" \
+     pages-cms
+   ```
+
+#### Automated Docker Hub Publishing
+
+The repository includes a GitHub Actions workflow (`.github/workflows/publish.yml`) that automatically builds and publishes Docker images to Docker Hub on:
+
+- **Push to main/master branch**: Creates images tagged with branch name and commit SHA
+- **Git tags (v\* pattern)**: Creates versioned images (e.g., `v1.0.0`, `1.0`, `1`)
+
+To enable automated publishing, add these secrets to your GitHub repository:
+
+1. Go to your repository Settings → Secrets and variables → Actions
+2. Add the following secrets:
+   - `DOCKERHUB_USERNAME`: Your Docker Hub username
+   - `DOCKERHUB_TOKEN`: Your Docker Hub access token (not your password)
+
+The workflow will publish images to: `docker.io/your-username/pages-cms`
+
+#### Using docker-compose
+
+For local development or simple deployments, you can use the provided `docker-compose.yaml`:
+
+```bash
+# Copy environment variables
+cp .env.example .env
+# Edit .env with your configuration
+docker-compose up -d
+```
 
 ### Self-host
 
 There are [plenty of other options](https://nextjs.org/docs/app/building-your-application/deploying#self-hosting): Fly.io, Digital Ocean, Render, SST, etc.
+You may also use the provided `docker-compose.yaml` / `Dockerfile` if you're using another service for Docker based deployments.
 
 ## License
 
